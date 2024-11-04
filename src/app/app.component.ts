@@ -67,7 +67,7 @@ export class AppComponent {
                 };
                 this.form
                   .get("modalOpener")
-                  .setValue(this.model.modalField.email);
+             //     .setValue(this.model.modalField.email);
                 this.emailModal = false;
                 console.log("this.model: ", this.model);
               }
