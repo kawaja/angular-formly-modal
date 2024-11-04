@@ -1,0 +1,30 @@
+@import "~bootstrap/scss/bootstrap.scss";
+body {
+  padding: 10px;
+}
+
+h1 {
+  background: #236965 url(https://tools.obyte.it/img/idrobyte/logo_sfera.svg)
+    no-repeat;
+  background-position: 2px 2px;
+  margin: 0 0 10px;
+  padding: 0 0 0 60px;
+  background-size: 45px;
+  line-height: 34px;
+  height: 48px;
+  a {
+    color: white;
+    font-size: 24px;
+    text-decoration: none;
+    &:hover {
+      color: rgb(47, 224, 180);
+    }
+  }
+}
+.container {
+  padding: 10px;
+}
+
+/**  Copyright 2018 Google Inc. All Rights Reserved.
+    Use of this source code is governed by an MIT-style license that
+    can be found in the LICENSE file at http://angular.io/license */

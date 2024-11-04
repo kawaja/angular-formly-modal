@@ -1,0 +1,29 @@
+<h1>
+  <a
+    href="http://blog.obyte.it/news/javascript/angular/create-an-angular-formly-form-modal/"
+    target="_blank"
+    >Formly modal form input</a
+  >
+</h1>
+
+<div class="container text-center">
+  <form [formGroup]="form" (ngSubmit)="submit()">
+    <formly-form
+      [model]="model"
+      [fields]="fields"
+      [options]="options"
+      [form]="form"
+    ></formly-form>
+    <button
+      type="submit"
+      class="btn btn-primary submit-button"
+      [disabled]="!form.valid"
+    >
+      Submit
+    </button>
+  </form>
+</div>
+
+<!-- Copyright 2018 Google Inc. All Rights Reserved.
+    Use of this source code is governed by an MIT-style license that
+    can be found in the LICENSE file at http://angular.io/license -->
