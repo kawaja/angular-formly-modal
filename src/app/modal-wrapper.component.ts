@@ -1,4 +1,4 @@
-import { Component } from "@angular/core";
+import { Component, Input } from "@angular/core";
 import { FieldWrapper } from "@ngx-formly/core";
 
 @Component({
@@ -15,7 +15,7 @@ import { FieldWrapper } from "@ngx-formly/core";
           <div class="modal-content">
             <div class="modal-header">
               <h4 class="modal-title">
-                {{ to.title }}
+                {{ props['title'] }}
               </h4>
               <button
                 type="button"
@@ -27,7 +27,7 @@ import { FieldWrapper } from "@ngx-formly/core";
               </button>
             </div>
             <div class="modal-body">
-              <div [innerHTML]="to.description"></div>
+              <div [innerHTML]="props.description"></div>
               <ng-container #fieldComponent></ng-container>
             </div>
           </div>
@@ -50,8 +50,8 @@ import { FieldWrapper } from "@ngx-formly/core";
 })
 export class ModalWrapperComponent extends FieldWrapper {
   onClose($event) {
-    if (this.to.onClose) {
-      this.to.onClose($event);
+    if (this.props['onClose']) {
+      this.props['onClose']($event);
     }
   }
 }

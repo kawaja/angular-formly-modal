@@ -1,13 +1,13 @@
-import { Component } from "@angular/core";
-import { FieldType } from "@ngx-formly/core";
+import { Component, Input, OnInit } from "@angular/core";
+import { FieldType, FieldTypeConfig, FormlyFieldProps } from "@ngx-formly/core";
 
 @Component({
   selector: "modal-input",
   template: `
     <div class="form-group">
-      <label [attr.for]="id" class="col-sm-2 col-form-label" *ngIf="to.label">
-        {{ to.label }}
-        <ng-container *ngIf="to.required && to.hideRequiredMarker !== true"
+      <label [attr.for]="id" class="col-sm-2 col-form-label" *ngIf="props.label">
+        {{ props.label }}
+        <ng-container *ngIf="to.required && props['hideRequiredMarker'] !== true"
           >*</ng-container>
       </label>
       <input
@@ -19,7 +19,7 @@ import { FieldType } from "@ngx-formly/core";
         class="form-control"
       />
       <div
-        *ngIf="to.modable"
+        *ngIf="props['modable']"
         class="input-group-addon btn btn btn-primary submit-button"
         (click)="onClick($event)">
         Open
@@ -43,20 +43,22 @@ import { FieldType } from "@ngx-formly/core";
     `
   ]
 })
-export class ModalFieldInputComponent extends FieldType {
-  defaultOptions = {
-    templateOptions: {
-      modable: false
-    }
-  };
+export class ModalFieldInputComponent extends FieldType<FieldTypeConfig> implements OnInit {
+  // override defaultOptions?: Partial<FieldTypeConfig<FormlyFieldProps & { [additionalProperties: string]: any; }>>;
 
   get type() {
-    return this.to.type || "text";
+    return this.props.type || "text";
+  }
+
+  ngOnInit() {
+    console.log('[ModalFieldInputComponent] onInit', JSON.stringify(this.props));
   }
 
   onClick($event) {
-    if (this.to.onClick) {
-      this.to.onClick($event);
+    console.log('[ModalFieldInputComponent] click');
+    console.log('[ModalFieldInputComponent]', JSON.stringify(this.props));
+    if (this.props['onClick']) {
+      this.props['onClick']($event);
     }
   }
 }

@@ -1,22 +1,23 @@
-import { Component } from "@angular/core";
+import { Component, Input } from "@angular/core";
 import { FieldType } from "@ngx-formly/core";
 
 @Component({
   selector: "modal-button",
   template: `
     <button
-      [type]="to.type"
-      [ngClass]="'btn btn-' + to.btnType"
+      [type]="props.type"
+      [ngClass]="'btn btn-' + props['btnType']"
       (click)="onClick($event)"
     >
-      {{ to.text }}
+      {{ props['text'] }}
     </button>
   `
 })
 export class FieldButtonComponent extends FieldType {
+
   onClick($event) {
-    if (this.to.onClick) {
-      this.to.onClick($event);
+    if (this.props['onClick']) {
+      this.props['onClick']($event);
     }
   }
 }

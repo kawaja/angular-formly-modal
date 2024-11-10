@@ -89,6 +89,7 @@ export class AppComponent {
   ];
 
   submit() {
+    console.log(this.fields)
     alert(JSON.stringify(this.model));
   }
 }
