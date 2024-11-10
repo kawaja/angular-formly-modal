@@ -39,7 +39,7 @@ import { FieldWrapper } from "@ngx-formly/core";
   styles: [
     `
       .modal-backdrop.fade {
-        opacity: 0.2;
+        opacity: 0.5;
         z-index: 1040;
       }
       .modal-dialog {
@@ -50,8 +50,8 @@ import { FieldWrapper } from "@ngx-formly/core";
 })
 export class ModalWrapperComponent extends FieldWrapper {
   onClose($event) {
-    if (this.props['onClose']) {
-      this.props['onClose']($event);
+    if (this.props['closer']) {
+      this.props['closer']($event);
     }
   }
 }

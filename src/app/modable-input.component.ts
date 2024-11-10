@@ -2,9 +2,9 @@ import { Component, Input, OnInit } from "@angular/core";
 import { FieldType, FieldTypeConfig, FormlyFieldProps } from "@ngx-formly/core";
 
 @Component({
-  selector: "modal-input",
+  selector: "modable-input",
   template: `
-    <div class="form-group">
+    <div class="form-group" (click)="onClick($event)">
       <label [attr.for]="id" class="col-sm-2 col-form-label" *ngIf="props.label">
         {{ props.label }}
         <ng-container *ngIf="to.required && props['hideRequiredMarker'] !== true"
@@ -43,7 +43,7 @@ import { FieldType, FieldTypeConfig, FormlyFieldProps } from "@ngx-formly/core";
     `
   ]
 })
-export class ModalFieldInputComponent extends FieldType<FieldTypeConfig> implements OnInit {
+export class ModableFieldInputComponent extends FieldType<FieldTypeConfig> implements OnInit {
   // override defaultOptions?: Partial<FieldTypeConfig<FormlyFieldProps & { [additionalProperties: string]: any; }>>;
 
   get type() {
@@ -51,14 +51,14 @@ export class ModalFieldInputComponent extends FieldType<FieldTypeConfig> impleme
   }
 
   ngOnInit() {
-    console.log('[ModalFieldInputComponent] onInit', JSON.stringify(this.props));
+    console.log('[ModalFieldInputComponent] onInit', this.props);
   }
 
   onClick($event) {
-    console.log('[ModalFieldInputComponent] click');
-    console.log('[ModalFieldInputComponent]', JSON.stringify(this.props));
-    if (this.props['onClick']) {
-      this.props['onClick']($event);
+    console.log('[ModalFieldInputComponent] click ', this.props);
+    if (this.props['opener']) {
+      console.log('[ModalFieldInputComponent] opening ', this.props['opener']);
+      this.props['opener']($event);
     }
   }
 }

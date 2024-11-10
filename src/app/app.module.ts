@@ -7,7 +7,7 @@ import { FormlyBootstrapModule } from "@ngx-formly/bootstrap";
 import { AppComponent } from "./app.component";
 import { ModalWrapperComponent } from "./modal-wrapper.component";
 import { FieldButtonComponent } from "./field-button.component";
-import { ModalFieldInputComponent } from "./modal-input.component";
+import { ModableFieldInputComponent } from "./modable-input.component";
 
 @NgModule({
   imports: [
@@ -17,9 +17,12 @@ import { ModalFieldInputComponent } from "./modal-input.component";
     FormlyModule.forRoot({
       types: [
         { name: "button", component: FieldButtonComponent },
-        { name: "modal-input", component: ModalFieldInputComponent },
+        { name: "modal-input", component: ModableFieldInputComponent },
       ],
-      wrappers: [{ name: "modal", component: ModalWrapperComponent }]
+      wrappers: [{ name: "modal", component: ModalWrapperComponent }],
+      extras: {
+        checkExpressionOn: 'changeDetectionCheck'  // this is needed for 'expressions' which don't refer to the model
+      }
     })
   ],
   bootstrap: [AppComponent],
@@ -27,8 +30,8 @@ import { ModalFieldInputComponent } from "./modal-input.component";
     AppComponent,
     FieldButtonComponent,
     ModalWrapperComponent,
-    ModalFieldInputComponent
-  ]
+    ModableFieldInputComponent
+  ],
 })
 export class AppModule {}
 

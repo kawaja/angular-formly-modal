@@ -1,12 +1,12 @@
-import { Component } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { FormGroup } from "@angular/forms";
 import { FormlyFormOptions, FormlyFieldConfig } from "@ngx-formly/core";
 
 @Component({
   selector: "formly-app-example",
-  templateUrl: "./app.component.html"
+  templateUrl: "./app.component.html",
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   form = new FormGroup({});
   model: any = {};
   options: FormlyFormOptions = {};
@@ -18,78 +18,84 @@ export class AppComponent {
     {
       key: "modalOpener",
       type: "modal-input",
-      templateOptions: {
+      props: {
         modable: true,
         disabled: true,
         label: "E-mail",
         placeholder: "email@email.it",
-        onClick: $event => {
+        opener: () => {
           this.emailModal = true;
-        }
-      }
+        },
+      },
     },
 
     /*********** MODAL FIELDS ***********/
     {
       key: "modalField",
       wrappers: ["modal"],
-      hideExpression: () => !this.emailModal,
-      templateOptions: {
+      expressions: {
+        hide: () => !this.emailModal,
+      },
+      props: {
         title: "A modal",
         description: "Description of this modal",
-        onClose: () => {
+        closer: () => {
           this.emailModal = false;
-        }
+        },
       },
       fieldGroup: [
         {
           key: "email",
           type: "input",
-          templateOptions: {
+          props: {
             type: "email",
             label: "E-mail",
             placeholder: "Insert a valid e-mail",
-            minLength: 3
-          }
+            minLength: 3,
+          },
         },
         {
           key: "myButton",
           type: "button",
-          templateOptions: {
+          props: {
             type: "button",
             btnType: "primary",
             text: "Send",
-            onClick: $event => {
+            onClick: ($event) => {
               if (this.form.valid && this.model.modalField.email) {
                 this.model = {
                   ...this.model,
-                  modalOpener: this.model.modalField.email
+                  modalOpener: this.model.modalField.email,
                 };
-                this.form
-                  .get("modalOpener")
-             //     .setValue(this.model.modalField.email);
+                // this.form
+                // .get("modalOpener")
+                //     .setValue(this.model.modalField.email);
                 this.emailModal = false;
                 console.log("this.model: ", this.model);
               }
-            }
-          }
-        }
-      ]
+            },
+          },
+        },
+      ],
     },
 
     {
       key: "normal-input",
       type: "modal-input",
-      templateOptions: {
+      props: {
         modable: false,
         label: "Generic text",
-        placeholder: "generic value"
-      }
-    }
+        placeholder: "generic value",
+      },
+    },
   ];
 
+  ngOnInit() {
+    console.log("[AppComponent] OnInit", JSON.stringify(this.fields));
+  }
+
   submit() {
-    console.log(this.fields)
+    console.log(this.fields);
     alert(JSON.stringify(this.model));
   }
 }
